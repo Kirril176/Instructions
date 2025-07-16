@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNI (Server Name Indication) - Объяснение</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 25px;
+        }
+        .code {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            font-family: Consolas, monospace;
+            overflow-x: auto;
+        }
+        .note {
+            background-color: #fffde7;
+            padding: 15px;
+            border-left: 4px solid #ffd600;
+            margin: 20px 0;
+        }
+        .diagram {
+            background-color: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Server Name Indication (SNI)</h1>
+    
+    <p>Server Name Indication (SNI) - это расширение протокола TLS, которое позволяет клиенту указать имя сервера, к которому он пытается подключиться, в начале процесса рукопожатия.</p>
+    
+    <h2>Проблема, которую решает SNI</h2>
+    <p>В традиционном HTTPS-соединении сервер должен предоставить правильный сертификат до того, как клиент отправит HTTP-заголовок Host. Это создаёт проблему для виртуальных хостов, когда несколько доменов используют один IP-адрес.</p>
+    
+    <div class="diagram">
+        <strong>Без SNI:</strong><br>
+        Клиент → Сервер (IP-адрес) → ? Какой сертификат предоставить?<br><br>
+        <strong>С SNI:</strong><br>
+        Клиент → Сервер (с указанием доменного имени) → Сервер предоставляет правильный сертификат
+    </div>
+    
+    <h2>Как работает SNI</h2>
+    <ol>
+        <li>Клиент инициирует TLS-рукопожатие</li>
+        <li>В сообщении ClientHello клиент включает расширение SNI с именем хоста</li>
+        <li>Сервер использует это имя для выбора соответствующего сертификата</li>
+        <li>Процесс рукопожатия продолжается с выбранным сертификатом</li>
+    </ol>
+    
+    <h2>Пример SNI в ClientHello</h2>
+    <div class="code">
+        Extension: server_name
+        Type: server_name (0)
+        Length: 19
+        Server Name Indication extension
+            Server Name list length: 17
+            Server Name Type: host_name (0)
+            Server Name length: 14
+            Server Name: example.com
+    </div>
+    
+    <h2>Важность SNI</h2>
+    <ul>
+        <li>Позволяет размещать несколько HTTPS-сайтов на одном IP-адресе</li>
+        <li>Экономит IPv4-адреса</li>
+        <li>Стандарт для современных веб-серверов и облачных платформ</li>
+    </ul>
+    
+    <div class="note">
+        <strong>Примечание:</strong> SNI раскрывает имя хоста в незашифрованном виде во время рукопожатия TLS. Для дополнительной конфиденциальности существуют расширения как Encrypted SNI (ESNI) в TLS 1.3.
+    </div>
+    
+    <h2>Поддержка браузерами</h2>
+    <p>SNI поддерживается всеми современными браузерами. Для старых браузеров (например, IE на Windows XP) может потребоваться fallback-решение.</p>
+    
+    <h2>Настройка SNI на сервере</h2>
+    <p>Пример конфигурации для Nginx:</p>
+    <div class="code">
+        server {
+            listen 443 ssl;
+            server_name example.com;
+            ssl_certificate /path/to/example.com.crt;
+            ssl_certificate_key /path/to/example.com.key;
+            ...
+        }
+        
+        server {
+            listen 443 ssl;
+            server_name another.com;
+            ssl_certificate /path/to/another.com.crt;
+            ssl_certificate_key /path/to/another.com.key;
+            ...
+        }
+    </div>
+    
+    <footer>
+        <p>© 2023 SNI Explanation Page | Информация предоставлена для образовательных целей</p>
+    </footer>
+</body>
+</html>

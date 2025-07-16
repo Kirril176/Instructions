@@ -1,0 +1,7 @@
+{
+  "first_name": "らなた様はあらまし",
+  "id": 8032960119,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "nnnsksksx"
+}

@@ -1,0 +1,7 @@
+{
+  "first_name": "Не 4:20",
+  "id": 7872733684,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "HE4_20"
+}

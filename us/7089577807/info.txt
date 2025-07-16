@@ -1,0 +1,7 @@
+{
+  "first_name": "Lis",
+  "id": 7089577807,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "APECTOBAH_3A_PR_GRAM"
+}

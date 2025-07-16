@@ -1,0 +1,6 @@
+{
+  "first_name": ".",
+  "id": 7287208150,
+  "is_bot": false,
+  "language_code": "ru"
+}

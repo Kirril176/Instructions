@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sekerinskiy VPN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #b0c4de;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+    .plan {
+      background-color: #ffffff;
+      color: #000;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .plan-title {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .plan-price {
+      font-size: 14px;
+      color: #444;
+    }
+    .buy-btn {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .buy-btn:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sekerinskiy VPN</h1>
+    <p>Choose a VPN subscription plan and pay with Telegram Stars.</p>
+
+    <div class="plan">
+      <div>
+        <div class="plan-title">30 days</div>
+        <div class="plan-price">1 star</div>
+      </div>
+      <button class="buy-btn" onclick="buy('key_30d', 30)">Buy</button>
+    </div>
+
+    <div class="plan">
+      <div>
+        <div class="plan-title">3 months</div>
+        <div class="plan-price">290 stars</div>
+      </div>
+      <button class="buy-btn" onclick="buy('key_90d', 90)">Buy</button>
+    </div>
+
+    <div class="plan">
+      <div>
+        <div class="plan-title">6 months</div>
+        <div class="plan-price">680 stars</div>
+      </div>
+      <button class="buy-btn" onclick="buy('key_180d', 180)">Buy</button>
+    </div>
+
+    <div class="plan">
+      <div>
+        <div class="plan-title">1 year</div>
+        <div class="plan-price">1270 stars</div>
+      </div>
+      <button class="buy-btn" onclick="buy('key_365d', 365)">Buy</button>
+    </div>
+  </div>
+
+  <script>
+    // Уведомляем Telegram, что Web App готов к работе
+    Telegram.WebApp.ready();
+
+    function buy(productId, duration) {
+      // Для отладки можно добавить console.log:
+      console.log("Initiating purchase for", productId, "duration:", duration);
+      
+      // Получаем ID пользователя из Telegram Web App
+      const tgId = Telegram.WebApp.initDataUnsafe.user?.id;
+      if (!tgId) {
+        console.error("Telegram user id not found");
+        return;
+      }
+      
+      // Формируем payload
+      const payload = `${productId}:user_${tgId}:days_${duration}`;
+      console.log("Payload:", payload);
+
+      Telegram.WebApp.purchase({
+        product_id: productId,
+        payload: payload
+      });
+    }
+
+    // Обработчик события покупки
+    Telegram.WebApp.onEvent('purchase', function(event) {
+      console.log("Purchase event received:", event);
+      const tgId = Telegram.WebApp.initDataUnsafe.user?.id;
+      Telegram.WebApp.sendData(JSON.stringify({
+        type: "key_purchase",
+        payload: event.payload,
+        user_id: tgId
+      }));
+    });
+  </script>
+</body>
+</html>

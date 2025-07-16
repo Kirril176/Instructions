@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>SekerinoVPN — Главная страница</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Общие стили */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Контейнер для контента */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Приветствие */
+    .welcome-section {
+      text-align: center;
+      padding: 80px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    .welcome-section h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: #4a7c59;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .welcome-section p {
+      font-size: 1.6rem;
+      color: #e0e0e0;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .welcome-section img {
+      max-width: 100%;
+      border-radius: 15px;
+      margin-top: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      animation: float 3s infinite ease-in-out;
+    }
+
+    /* Анимация плавания */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Виджет с правилами */
+    .rules-widget {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 40px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    .rules-widget:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+    .rules-widget img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    .rules-widget p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+    }
+
+    /* Блок инструкций */
+    .instructions-section {
+      margin-bottom: 60px;
+    }
+    .instructions-section h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #4a7c59;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .instructions-section h2 img {
+      width: 40px;
+    }
+    .instruction-widgets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .instruction-widget {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .instruction-widget:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+    .instruction-widget img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    .instruction-widget p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+    }
+
+    /* Раздел о протоколе VLESS */
+    .vless-section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vless-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cpath d='M0 0h800v600H0z' fill='none'/%3E%3Cellipse cx='400' cy='300' rx='350' ry='200' fill='rgba(255,255,255,0.02)'/%3E%3C/svg%3E");
+      opacity: 0.1;
+      pointer-events: none;
+    }
+    .vless-section h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #4a7c59;
+    }
+    .vless-section img {
+      max-width: 100%;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .vless-section h3 {
+      font-size: 2rem;
+      margin-top: 30px;
+      color: #4a7c59;
+    }
+    .vless-section p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+    }
+    .vless-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .vless-section ul li {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #e0e0e0;
+    }
+    .vless-section ul li::before {
+      content: "•";
+      color: #4a7c59;
+      margin-right: 10px;
+    }
+
+    /* Футер */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      margin-top: 40px;
+    }
+    footer p {
+      font-size: 1rem;
+      color: #e0e0e0;
+    }
+
+    /* Анимация появления */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Приветствие -->
+    <div class="welcome-section">
+      <h1>Добро пожаловать в SekerinoVPN!</h1>
+      <p>Ваш ключ к свободе и безопасности в интернете. Мы делаем интернет быстрым, открытым и защищенным.</p>
+      <img src="dom1.WEBP" alt="Приветствие">
+    </div>
+
+    <!-- Виджет с правилами -->
+    <div class="rules-widget" onclick="window.location.href='https://xyem.su/politic.html'">
+      <img src="https://img.icons8.com/color/96/000000/document.png" alt="Правила">
+      <p>Ознакомьтесь с правилами пользования</p>
+    </div>
+
+    <!-- Блок инструкций -->
+    <div class="instructions-section">
+      <h2>
+        <img src="https://img.icons8.com/color/96/000000/book.png" alt="Инструкции">
+        Инструкции
+      </h2>
+      <div class="instruction-widgets">
+        <div class="instruction-widget" onclick="window.location.href='https://xyem.su/windows.html'">
+          <img src="https://cdn-icons-png.flaticon.com/512/732/732225.png" alt="Windows">
+          <p>Windows</p>
+        </div>
+        <div class="instruction-widget" onclick="window.location.href='https://xyem.su/android.html'">
+          <img src="https://img.icons8.com/color/96/000000/android-os.png" alt="Android">
+          <p>Android</p>
+        </div>
+        <div class="instruction-widget" onclick="window.location.href='https://xyem.su/ios.html'">
+          <img src="https://img.icons8.com/color/96/000000/ios-logo.png" alt="iOS">
+          <p>iOS</p>
+        </div>
+        <div class="instruction-widget" onclick="window.location.href='https://xyem.su/macos.html'">
+          <img src="https://img.icons8.com/color/96/000000/mac-logo.png" alt="MacOS">
+          <p>MacOS</p>
+        </div>
+        <div class="instruction-widget" onclick="window.location.href='https://xyem.su/tv.html'">
+          <img src="https://img.icons8.com/color/96/000000/tv.png" alt="Android TV">
+          <p>Android TV</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Раздел о протоколе VLESS -->
+    <div class="vless-section">
+      <h2>Используемый протокол</h2>
+      <h3>Наш выбор — VLESS!</h3>
+      <img src="dom2.AVIF" alt="VLESS">
+      <h3>Немного истории</h3>
+      <p>
+        История появления протокола VLESS неразрывно связана с его предшественником — VMess. Ранние версии VMess, разработанные для обхода блокировок, использовали многоуровневое шифрование и динамическую маскировку трафика. Такой подход позволял успешно обходить цензуру, но имел существенные недостатки: высокая нагрузка на процессор и снижение скорости соединения из-за избыточных криптографических операций.
+      </p>
+      <p>
+        Чтобы решить эти проблемы, разработчики решили переосмыслить подход к организации защищенных соединений. Так появился VLESS — протокол, ориентированный на минимализм и эффективность. Название «VLESS» отражает суть решения: отказ от лишних операций, в частности, от встроенного шифрования, и передача задачи защиты данных внешним, стандартизированным механизмам.
+      </p>
+      <img src="dom3.AVIF" alt="Технические особенности">
+      <h3>Технические особенности</h3>
+      <ul>
+        <li><strong>Легковесность:</strong> VLESS спроектирован так, чтобы минимизировать нагрузку на систему. В отличие от VMess, он не реализует собственное шифрование и аутентификацию, что снижает потребление ресурсов.</li>
+        <li><strong>Универсальность транспорта:</strong> Протокол поддерживает различные виды транспортных протоколов (TCP, mKCP, WebSocket), что обеспечивает гибкость в настройке.</li>
+        <li><strong>Скрытие под HTTPS-трафик:</strong> При использовании TLS, трафик VLESS выглядит как обычное зашифрованное соединение (HTTPS).</li>
+        <li><strong>Упрощенная аутентификация:</strong> Вместо сложных внутренних алгоритмов для проверки клиента, VLESS использует уникальные идентификаторы (например, UUID).</li>
+      </ul>
+      <h3>Преимущества перед альтернативными решениями</h3>
+      <p>
+        В течение многих лет Shadowsocks был основным выбором для обхода интернет-цензуры благодаря своей простоте. Однако характерное шифрование Shadowsocks позволяет легко выявлять его трафик при помощи современных DPI-систем.
+      </p>
+      <p>
+        VLESS, используя стандартный TLS, маскирует свой трафик под обычное HTTPS-соединение, что делает его практически неотличимым от легитимного интернет-трафика и значительно снижает вероятность блокировок.
+      </p>
+      <h3>Революция под названием Reality</h3>
+      <p>
+        В 2023 году разработчики представили расширение Reality для VLESS, которое значительно повысило уровень маскировки и безопасности. Reality использует возможности TLS 1.3, включая шифрование SNI и ALPN, а также динамическую маскировку.
+      </p>
+      <h3>Почему мы выбрали VLESS</h3>
+      <p>
+        Мы отдали предпочтение VLESS, поскольку он обеспечивает оптимальный баланс между безопасностью и производительностью. Эффективность, надежность защиты и гибкость настройки делают его идеальным решением для современного VPN.
+      </p>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+      <p>© 2025 SekerinoVPN. Все права защищены.</p>
+    </footer>
+  </div>
+</body>
+</html>

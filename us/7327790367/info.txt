@@ -1,0 +1,7 @@
+{
+  "first_name": "s²",
+  "id": 7327790367,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "asistant_gsgsh"
+}

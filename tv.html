@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Подключение к VPN через V2rayTun на телевизоре AndroidTV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Общие стили: светлая тема, базовый шрифт увеличен на 20% */
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Roboto', sans-serif;
+      background: #ffffff;
+      color: #333;
+      width: 100%;
+      overflow-x: hidden;
+      font-size: 120%;
+    }
+    
+    /* Фоновый узор */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cellipse cx='100' cy='150' rx='120' ry='60' fill='rgba(200,200,200,0.2)' transform='rotate(15,100,150)'/%3E%3Cellipse cx='400' cy='100' rx='90' ry='45' fill='rgba(200,200,200,0.2)' transform='rotate(-20,400,100)'/%3E%3Cellipse cx='250' cy='300' rx='150' ry='75' fill='rgba(200,200,200,0.2)' transform='rotate(30,250,300)'/%3E%3Cellipse cx='600' cy='200' rx='105' ry='52' fill='rgba(200,200,200,0.2)' transform='rotate(-45,600,200)'/%3E%3Cellipse cx='150' cy='450' rx='135' ry='68' fill='rgba(200,200,200,0.2)' transform='rotate(10,150,450)'/%3E%3Cellipse cx='500' cy='400' rx='120' ry='60' fill='rgba(200,200,200,0.2)' transform='rotate(25,500,400)'/%3E%3Cellipse cx='700' cy='350' rx='90' ry='45' fill='rgba(200,200,200,0.2)' transform='rotate(-30,700,350)'/%3E%3C/svg%3E");
+      background-size: 400px;
+      background-repeat: repeat;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* Шапка */
+    .header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 15px 30px;
+      border-bottom: 2px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin: -20px -20px 20px -20px;
+    }
+    .header-buttons {
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+    
+    /* Современные кнопки */
+    .header-btn {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #57a1f8, #86c1f7);
+      border: none;
+      color: #fff;
+      padding: 18px 30px;
+      font-size: 1.92rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .header-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .header-btn img {
+      width: 34px;
+      height: 34px;
+      margin-right: 10px;
+    }
+    /* Кнопка активная (текущая страница) */
+    .header-btn.active {
+      opacity: 0.7;
+      cursor: default;
+    }
+    
+    /* Выпадающее меню */
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 80px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      min-width: 220px;
+      border: 1px solid #ddd;
+      animation: fadeIn 0.3s ease-in-out;
+      z-index: 101;
+    }
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      padding: 18px 24px;
+      transition: background 0.3s;
+      font-size: 1.8rem;
+    }
+    .dropdown a:hover {
+      background: #e0e0e0;
+    }
+    .dropdown a img {
+      width: 30px;
+      height: 30px;
+      margin-right: 12px;
+    }
+    .dropdown a.tv-icon img {
+      width: 35px;
+      height: 35px;
+    }
+    
+    /* Заголовок и основной текст */
+    h1 {
+      text-align: center;
+      color: #4a7c59;
+      font-size: 2.4rem;
+      margin-bottom: 14px;
+    }
+    p {
+      line-height: 1.6;
+      font-size: 1.32rem;
+      margin-bottom: 1.2rem;
+      max-width: 100%;
+    }
+    
+    /* Шаги */
+    .step {
+      margin: 20px 0;
+      padding: 18px;
+      background: #f2f2f2;
+      border-left: 5px solid #4a7c59;
+      border-radius: 8px;
+      font-size: 1.32rem;
+    }
+    .step-title {
+      font-weight: 500;
+      color: #4a7c59;
+      margin-bottom: 8px;
+    }
+    
+    /* Подсказки */
+    .hint {
+      display: flex;
+      align-items: center;
+      background: #f2f2f2;
+      border-left: 5px solid #ff9800;
+      padding: 14px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+    .hint img {
+      width: 22px;
+      height: 22px;
+      margin-right: 10px;
+    }
+    .hint-text {
+      color: #ff9800;
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+    
+    /* Списки */
+    ul {
+      margin: 0 0 0.8rem 1.2rem;
+      padding: 0;
+      list-style: disc;
+      font-size: 1.2rem;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    /* Ссылки */
+    a {
+      color: #4a7c59;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Изображения */
+    .screenshot {
+      display: block;
+      margin: 15px auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* Анимация появления меню */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Шапка с кнопками -->
+  <div class="header">
+    <div class="header-buttons">
+      <!-- Кнопка "Главная страница" -->
+      <button class="header-btn" onclick="window.location.href='https://xyem.su/dom.html'">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Домик">
+        Главная страница
+      </button>
+      <!-- Кнопка "Телевизор" с выпадающим меню -->
+      <button class="header-btn active" onclick="toggleMenu()">
+        <img src="https://img.icons8.com/?size=100&id=hPX1qtxguqO5&format=png&color=ffffff" alt="Телевизор">
+        Телевизор ▼
+      </button>
+      <div class="dropdown" id="dropdown">
+        <a href="https://xyem.su/android.html">
+          <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Android">
+          Android
+        </a>
+        <a href="https://xyem.su/windows.html">
+          <img src="https://cdn-icons-png.flaticon.com/512/732/732225.png" alt="Windows">
+          Windows
+        </a>
+        <a href="https://xyem.su/ios.html">
+          <img src="https://cdn-icons-png.flaticon.com/512/888/888841.png" alt="iOS">
+          iOS
+        </a>
+        <a href="https://xyem.su/macos.html">
+          <img src="https://cdn-icons-png.flaticon.com/512/2/2235.png" alt="MacOS">
+          MacOS
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Основной контент -->
+  <h1>Подключение к VPN через V2rayTun на телевизоре AndroidTV</h1>
+  <p><strong>Требуется AndroidTV 7.0 или новее.</strong></p>
+  <p>
+    <strong>
+      <a href="https://play.google.com/store/apps/details?id=com.v2raytun.android" target="_blank">
+        Загрузить в Google Play →
+      </a>
+    </strong>
+  </p>
+  <div class="hint">
+    <img src="https://img.icons8.com/emoji/48/exclamation-mark-emoji.png" alt="Подсказка">
+    <div class="hint-text">
+      Обратите внимание: в зависимости от вашего производителя телевизора интерфейс и некоторые этапы настройки могут отличаться. В данном руководстве используется оригинальная версия AndroidTV 14.0 без сторонних графических оболочек.
+    </div>
+  </div>
+  
+  <!-- Шаг 1. Установите приложение -->
+  <div class="step">
+    <div class="step-title">Шаг 1. Установите приложение</div>
+    <p>
+      Откройте <a href="https://play.google.com/store/apps/details?id=com.v2raytun.android" target="_blank">страницу</a> в Google Play и установите <strong>V2rayTun</strong>.
+    </p>
+  </div>
+  <img src="tv1.WEBP" alt="Установка V2rayTun" class="screenshot">
+  
+  <!-- Шаг 2. Установите ключ в приложение -->
+  <div class="step">
+    <div class="step-title">Шаг 2. Установите ключ в приложение</div>
+    <div class="hint">
+      <img src="https://img.icons8.com/emoji/48/exclamation-mark-emoji.png" alt="Подсказка">
+      <div class="hint-text">
+        Подсказка: бесплатный ключ можно получить в <a href="https://t.me/HelsinkiTest_bot" target="_blank">Telegram-боте</a>.
+      </div>
+    </div>
+    <p><strong>Ручная установка:</strong></p>
+    <ul>
+      <li>Скопируйте ваш ключ в разделе «Мой VPN ключ», нажав на него, или нажмите на кнопку «🗝️ Установить ключ» и скопируйте ключ на странице подписки.</li>
+      <li>Откройте меню «Управление» в V2rayTun.</li>
+      <li>Выберите «Импорт из буфера обмена», после чего подписка добавится автоматически.</li>
+    </ul>
+    <div class="hint">
+      <img src="https://img.icons8.com/emoji/48/exclamation-mark-emoji.png" alt="Подсказка">
+      <div class="hint-text">
+        Подсказка: официальный клиент Telegram отсутствует на AndroidTV, но вы можете воспользоваться Web-версией в браузере.
+      </div>
+    </div>
+  </div>
+  <img src="tv2.jpg" alt="Установка ключа" class="screenshot screenshot-small">
+  <img src="tv3.WEBP" alt="Управление ключами" class="screenshot screenshot-small">
+  
+  <!-- Установка ключа с помощью QR-кода -->
+  <div class="step">
+    <div class="step-title">Установка ключа с помощью QR-кода</div>
+    <div class="hint">
+      <img src="https://img.icons8.com/emoji/48/exclamation-mark-emoji.png" alt="Подсказка">
+      <div class="hint-text">
+        Подсказка: данный способ может помочь, если установка ключа с помощью импорта из буфера обмена текстовой ссылки не работает.
+      </div>
+    </div>
+    <ul>
+      <li>Нажмите на кнопку «📺Показать QR-код» в разделе «Мой VPN ключ».</li>
+      <li>Откройте QR-код из сообщения от бота и сохраните изображение на устройстве (например, на ПК).</li>
+      <li>Перенесите изображение с QR-кодом на телевизор (например, с помощью USB-флешки).</li>
+      <li>Откройте V2rayTun и перейдите в меню «Управление».</li>
+      <li>Выберите «Импорт из QR-кода».</li>
+      <li>Выберите изображение с QR-кодом из галереи, нажав кнопку «Выберите файл конфига» или на значок в левом верхнем углу, после чего подписка добавится автоматически.</li>
+    </ul>
+    <div class="hint">
+      <img src="https://img.icons8.com/emoji/48/exclamation-mark-emoji.png" alt="Подсказка">
+      <div class="hint-text">
+        Подсказка: если вам не удается выбрать опцию импорта QR-кода из галереи с помощью пульта, вы можете временно подключить мышь к телевизору и выбрать её курсором.
+      </div>
+    </div>
+  </div>
+  <img src="tv4.AVIF" alt="Импорт QR-кода" class="screenshot screenshot-small">
+  
+  <!-- Шаг 3. Настройте приложение -->
+  <div class="step">
+    <div class="step-title">Шаг 3. Настройте приложение</div>
+    <p>
+      Перед подключением посетите вкладку «Сервисы» и добавьте правила маршрутизации.
+    </p>
+    <div class="hint">
+      <img src="https://img.icons8.com/emoji/48/exclamation-mark-emoji.png" alt="Подсказка">
+      <div class="hint-text">
+        Подсказка: вы можете настроить удобные правила маршрутизации, поставив галочки напротив следующих доменов и сервисов, на которые не будет распространяться действие VPN:
+      </div>
+    </div>
+    <p><strong>Домены:</strong></p>
+    <ul>
+      <li>.ru</li>
+      <li>.рф</li>
+    </ul>
+    <p><strong>Сервисы:</strong></p>
+    <ul>
+      <li>Avito, Ozon, СберБанк, Telegram, Twitch, VK, WildBerries, Яндекс</li>
+    </ul>
+    <p><strong>Что это даёт:</strong></p>
+    <ul>
+      <li>Нет необходимости в постоянном включении и выключении VPN.</li>
+      <li>Скрытие факта использования VPN, что повышает его устойчивость к блокировке.</li>
+      <li>Трафик к российским сайтам и сервисам идёт напрямую, что даёт вам доступ к любым ресурсам, блокирующим подключения "из-вне".</li>
+      <li>Экономия месячных лимитов трафика VPN-подключения — посещение незаблокированных ресурсов не занимает ваш VPN-трафик.</li>
+      <li>Ускорение доступа к российским сайтам, исключив маршрут трафика Россия–Европа–Россия.</li>
+      <li>Ускорение скорости работы YouTube, Discord и других сервисов благодаря освобождению пропускной способности.</li>
+    </ul>
+    <p>Если у вас возникают проблемы с доступом к нужным ресурсам, уберите выставленные параметры.</p>
+  </div>
+  <img src="tv5.AVIF" alt="Настройка маршрутизации" class="screenshot large">
+  
+  <!-- Шаг 4. Подключитесь и пользуйтесь -->
+  <div class="step">
+    <div class="step-title">Шаг 4. Подключитесь и пользуйтесь</div>
+    <ul>
+      <li>Вернитесь на главную страницу V2rayTun.</li>
+      <li>Выберите нужную страну.</li>
+      <li>Нажмите большую кнопку подключения по центру.</li>
+      <li>Пользуйтесь 🙂</li>
+    </ul>
+    <div class="hint">
+      <img src="https://img.icons8.com/emoji/48/exclamation-mark-emoji.png" alt="Подсказка">
+      <div class="hint-text">
+        Подсказка: после смены страны необходимо переподключиться, выключив и включив кнопку подключения.
+      </div>
+    </div>
+  </div>
+  <img src="tv6.AVIF" alt="Подключение" class="screenshot small">
+  
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById("dropdown");
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+    window.onclick = function(event) {
+      if (!event.target.closest('.header-btn')) {
+        document.getElementById("dropdown").style.display = "none";
+      }
+    }
+  </script>
+  
+</body>
+</html>

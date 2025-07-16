@@ -1,0 +1,7 @@
+{
+  "first_name": "Dior",
+  "id": 7426375585,
+  "is_bot": false,
+  "language_code": "ru",
+  "last_name": "Amigos"
+}

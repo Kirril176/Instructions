@@ -1,0 +1,7 @@
+{
+  "first_name": "Anna",
+  "id": 8066607068,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "Annna2008"
+}

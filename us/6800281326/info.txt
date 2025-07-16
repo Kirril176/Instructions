@@ -1,0 +1,7 @@
+{
+  "first_name": "♰Archangel♰",
+  "id": 6800281326,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "RedAngel282"
+}

@@ -1,0 +1,8 @@
+{
+  "first_name": "Аким",
+  "id": 6402834747,
+  "is_bot": false,
+  "is_premium": true,
+  "language_code": "ru",
+  "username": "global_own"
+}

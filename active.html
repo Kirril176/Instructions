@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Активная страница</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      background-color: #1e1e1e;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .button {
+      background-color: #333;
+      color: #e0e0e0;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 10px;
+      display: inline-block;
+    }
+    .button:hover {
+      background-color: #444;
+    }
+  </style>
+  <script>
+    // Функция для получения параметров из URL
+    function getQueryParams() {
+      var params = {};
+      var queryString = window.location.search.substring(1);
+      var regex = /([^&=]+)=([^&]*)/g;
+      var match;
+      while (match = regex.exec(queryString)) {
+        params[decodeURIComponent(match[1])] = decodeURIComponent(match[2]);
+      }
+      return params;
+    }
+
+    window.onload = function() {
+      var params = getQueryParams();
+      if (params.app && params.tgid) {
+        var tgid = params.tgid;
+        var app = params.app.toLowerCase();
+        var targetLink = "";
+        if (app === "v2raytun") {
+          targetLink = "v2raytun://import/https://xyem.su/us/" + tgid + "/Sekerinskiy.txt#Sekerinskiy🛫";
+        } else if (app === "hiddify") {
+          targetLink = "hiddify://import/https://xyem.su/us/" + tgid + "/Sekerinskiy.txt";
+        }
+        if (targetLink) {
+          // Пытаемся автоматически перейти по целевой ссылке
+          window.location.href = targetLink;
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Перенаправление</h1>
+    <p>Если страница не открылась автоматически, нажмите кнопку ниже.</p>
+    <a class="button" href="https://xyem.su/dom.html">Главная страница</a>
+  </div>
+</body>
+</html>

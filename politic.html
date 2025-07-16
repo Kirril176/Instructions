@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Правила пользования сервисом</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Общие стили */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #1a1a1a;
+      color: #f0f0f0;
+      line-height: 1.5;
+    }
+    .wrapper {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px 30px;
+      background: #222;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #ff5722;
+    }
+    h2 {
+      color: #ff5722;
+      margin: 20px 0 10px;
+      font-size: 1.2rem;
+      border-left: 3px solid #ff5722;
+      padding-left: 8px;
+    }
+    ul {
+      margin: 0 0 10px 20px;
+      padding: 0;
+      list-style-type: disc;
+    }
+    li {
+      margin-bottom: 5px;
+      font-size: 0.95rem;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+    /* Контейнер кнопок в правом верхнем углу */
+    .header-buttons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+    }
+    .header-btn {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(45deg, #ff5722, #ff8a50);
+      border: none;
+      color: #fff;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .header-btn:hover {
+      background: linear-gradient(45deg, #e64a19, #ff7043);
+    }
+    .header-btn img {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+    /* Выпадающее меню для инструкций */
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 35px;
+      background: #333;
+      border: 1px solid #444;
+      border-radius: 4px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+      overflow: hidden;
+      min-width: 150px;
+    }
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #f0f0f0;
+      padding: 8px 10px;
+      transition: background 0.3s;
+      font-size: 0.9rem;
+    }
+    .dropdown a:hover {
+      background: #444;
+    }
+    .dropdown a img {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Кнопки в правом верхнем углу -->
+<div class="header-buttons">
+  <!-- Кнопка "Главная страница" -->
+  <button class="header-btn" onclick="window.location.href='https://xyem.su/dom.html'">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Домик">
+    Главная страница
+  </button>
+  <!-- Кнопка "Инструкции" с выпадающим меню -->
+  <div style="position: relative;">
+    <button class="header-btn" onclick="toggleMenu()">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/open-book.png" alt="Книга">
+      Инструкции ▼
+    </button>
+    <div class="dropdown" id="dropdown">
+      <a href="https://xyem.su/android.html"><img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Android">Android</a>
+      <a href="https://xyem.su/ios.html"><img src="https://cdn-icons-png.flaticon.com/512/888/888841.png" alt="iOS">iOS</a>
+      <a href="https://xyem.su/windows.html"><img src="https://cdn-icons-png.flaticon.com/512/732/732225.png" alt="Windows">Windows</a>
+      <a href="https://xyem.su/macos.html"><img src="https://cdn-icons-png.flaticon.com/512/2/2235.png" alt="MacOS">MacOS</a>
+      <a href="https://xyem.su/tv.html"><img src="https://img.icons8.com/?size=100&id=hPX1qtxguqO5&format=png&color=000000" alt="Телевизор" style="width:20px; height:20px;">Телевизор</a>
+    </div>
+  </div>
+</div>
+
+<!-- Контейнер с правилами -->
+<div class="wrapper">
+  <h1>Правила пользования сервисом</h1>
+
+  <h2>1. Общие положения</h2>
+  <ul>
+    <li>1.1. Настоящие правила регулируют отношения между сервисом SekerinoVPN (далее - Сервис) и пользователем услуг (далее - Пользователь).</li>
+    <li>1.2. Начало использования сервиса означает полное и безоговорочное принятие данных правил.</li>
+  </ul>
+
+  <h2>2. Условия предоставления услуг</h2>
+  <ul>
+    <li>2.1. Сервис предоставляет услуги VPN-подключения согласно выбранному тарифному плану.</li>
+    <li>2.2. Ограничения по количеству устройств:
+      <ul>
+        <li>Тариф «Free Trial» - 1 устройство</li>
+        <li>Тариф «Sekerinskiy Standart» - 2 устройства</li>
+        <li>Тариф «Sekerino Family» - до 4 устройств</li>
+        <li>Тариф «Sekerino Unlimited» - до 10 устройств</li>
+      </ul>
+    </li>
+    <li>2.3. При превышении лимита одновременных подключений доступ к VPN автоматически блокируется на срок от 30 минут до 24 часов.</li>
+    <li>2.4. При неоднократном нарушении правил лимитирования количества устройств сервис оставляет за собой право прекратить предоставление услуг без возврата средств.</li>
+  </ul>
+
+  <h2>3. Ограничения использования</h2>
+  <ul>
+    <li>3.1. В связи с расположением серверов в странах Европейского Союза, запрещено:
+      <ul>
+        <li>Скачивание и распространение пиратского контента через bittorrent-сети с использованием VPN</li>
+        <li>Использование иных P2P-сетей</li>
+        <li>Любая нелегальная активность</li>
+      </ul>
+    </li>
+    <li>3.2. Запрещено использование сервиса для:
+      <ul>
+        <li>Рассылки спама</li>
+        <li>DDoS-атак</li>
+        <li>Взлома и несанкционированного доступа</li>
+        <li>Распространения вредоносного ПО</li>
+        <li>Иной противоправной деятельности</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>4. Конфиденциальность и сбор данных</h2>
+  <ul>
+    <li>4.1. Политика логгирования:
+      <ul>
+        <li>Сервис не ведет логи активности пользователей</li>
+        <li>Не собирает данные о трафике</li>
+        <li>Сохраняет историю подключений</li>
+      </ul>
+    </li>
+    <li>4.2. Собираемые данные ограничиваются:
+      <ul>
+        <li>Идентификатором пользователя Telegram</li>
+        <li>Информацией о выбранном тарифном плане</li>
+        <li>Датой окончания подписки</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>5. Оплата и возврат средств</h2>
+  <ul>
+    <li>5.1. Оплата услуг производится согласно выбранному тарифному плану.</li>
+    <li>5.2. В связи со спецификой предоставляемых услуг:
+      <ul>
+        <li>Неиспользованный трафик не переносится на следующий платежный период</li>
+        <li>Денежные средства после активации услуги возвращаются только по заявке в службу технической поддержки с предоставлением необходимых данных</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>6. Ответственность</h2>
+  <ul>
+    <li>6.1. Пользователь несет полную ответственность за:
+      <ul>
+        <li>Сохранность своих учетных данных</li>
+        <li>Действия, совершенные через предоставленное VPN-подключение</li>
+        <li>Соблюдение законодательства стран, через которые осуществляется подключение</li>
+      </ul>
+    </li>
+    <li>6.2. Сервис оставляет за собой право:
+      <ul>
+        <li>Заблокировать доступ при нарушении правил</li>
+        <li>Прекратить предоставление услуг без возврата средств при грубых нарушениях</li>
+      </ul>
+    </li>
+    <li>6.3. Сервис предоставляется по принципу «как есть» (as is):
+      <ul>
+        <li>Сервис не несет ответственности за любые прямые или косвенные убытки</li>
+        <li>Сервис не гарантирует бесперебойную работу</li>
+        <li>Сервис не несет ответственности за действия третьих лиц</li>
+      </ul>
+    </li>
+    <li>6.4. Пользователь принимает на себя все риски, связанные с:
+      <ul>
+        <li>Использованием сервиса в коммерческих целях</li>
+        <li>Потерей данных</li>
+        <li>Невозможностью доступа к определенным ресурсам</li>
+        <li>Техническими сбоями</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>7. Обстоятельства непреодолимой силы</h2>
+  <ul>
+    <li>7.1. Стороны освобождаются от ответственности за неисполнение обязательств при наступлении форс-мажорных обстоятельств:
+      <ul>
+        <li>Природные катастрофы</li>
+        <li>Военные действия</li>
+        <li>Решения государственных органов</li>
+        <li>DDoS-атаки</li>
+        <li>Сбои в работе дата-центров</li>
+        <li>Массовые сбои в работе интернет-провайдеров</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>8. Техническая поддержка</h2>
+  <ul>
+    <li>8.1. Техническая поддержка осуществляется через чат с @SekerinskiyVPN_tech.</li>
+    <li>8.2. Время реакции на обращения - до 12 часов.</li>
+    <li>8.3. При обращении в техническую поддержку Пользователь обязуется:
+      <ul>
+        <li>Вести общение в уважительной форме</li>
+        <li>Воздерживаться от оскорблений и нецензурной лексики</li>
+        <li>Предоставлять точную информацию о возникшей проблеме</li>
+        <li>Следовать инструкциям специалистов поддержки</li>
+      </ul>
+    </li>
+    <li>8.4. Сервис оставляет за собой право:
+      <ul>
+        <li>Прекратить обслуживание при грубом или неуважительном поведении</li>
+        <li>Отказать в поддержке при систематическом нарушении правил общения</li>
+        <li>Заблокировать доступ к сервису при угрозах в адрес сотрудников технической поддержки</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>9. Права на интеллектуальную собственность</h2>
+  <ul>
+    <li>9.1. Все права на сервис принадлежат владельцам сервиса, включая:
+      <ul>
+        <li>Программный код</li>
+        <li>Торговые марки</li>
+        <li>Логотипы</li>
+        <li>Дизайн</li>
+      </ul>
+    </li>
+    <li>9.2. Запрещено:
+      <ul>
+        <li>Копирование и модификация кода</li>
+        <li>Реверс-инжиниринг</li>
+        <li>Использование элементов дизайна</li>
+        <li>Создание производных продуктов</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>10. Изменение правил</h2>
+  <ul>
+    <li>10.1. Сервис оставляет за собой право вносить изменения в данные правила.</li>
+    <li>10.2. С изменениями в правилах можно ознакомиться:
+      <ul>
+        <li>В разделе «Помощь» Telegram-бота</li>
+        <li>В документации «Sekerino VPN»</li>
+      </ul>
+    </li>
+    <li>10.3. Продолжение использования сервиса после внесения изменений означает согласие с изменением правил.</li>
+  </ul>
+
+  <div class="footer">
+    © 2025 SekerinoVPN. Все права защищены.
+  </div>
+</div>
+
+<script>
+  function toggleMenu() {
+    var menu = document.getElementById("dropdown");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  }
+  window.onclick = function(event) {
+    if (!event.target.closest('.header-btn')) {
+      document.getElementById("dropdown").style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>

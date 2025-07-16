@@ -1,0 +1,8 @@
+{
+  "first_name": "Юлия",
+  "id": 595066455,
+  "is_bot": false,
+  "language_code": "ru",
+  "last_name": "Ревнивых",
+  "username": "Juliarevnivyh"
+}

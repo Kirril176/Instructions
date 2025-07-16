@@ -1,0 +1,7 @@
+{
+  "first_name": "Vadim",
+  "id": 7696526152,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "sjaskaaa"
+}

@@ -1,0 +1,7 @@
+{
+  "first_name": "Владислав",
+  "id": 993593790,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "vladavto59"
+}

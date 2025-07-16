@@ -1,0 +1,6 @@
+{
+  "tgId": 291159930,
+  "admin_setsub": true,
+  "duration": 90,
+  "tariff": "Black"
+}

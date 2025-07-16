@@ -1,0 +1,7 @@
+{
+  "first_name": "MoneyKiller",
+  "id": 5673807844,
+  "is_bot": false,
+  "language_code": "ru",
+  "username": "MoneyKiller06"
+}

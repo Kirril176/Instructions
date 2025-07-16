@@ -1,0 +1,6 @@
+{
+  "tgId": 1890514282,
+  "admin_setsub": true,
+  "duration": 30,
+  "tariff": "Классический"
+}
