@@ -1,2 +1,0 @@
-vless://d786ef30-0819-11f0-9558-8dfc6e052011@138.124.58.59:443/?type=tcp&security=reality&pbk=FolfsMqV-Xzl6wkpRyv9mYmyXT0wtobRh194ccn9eUk&fp=random&sni=www.xyem.su&sid=4c99&spx=%2F&flow=xtls-rprx-vision#%D0%A4%D1%80%D0%B0%D0%BD%D1%86%D0%B8%D1%8F%20%F0%9F%87%AB%F0%9F%87%B7
-vless://d786ef31-0819-11f0-9558-8dfc6e052011@91.186.216.230:443/?type=tcp&security=reality&pbk=2GkMHBAOsT9i3uVpy9jbWafZudHA_4bRs3Im3Wq_OHQ&fp=random&sni=ebynadomy.com&sid=c4f6cbd843&spx=%2F&flow=xtls-rprx-vision#Швеция%20%F0%9F%87%B8%F0%9F%87%AA

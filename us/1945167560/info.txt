@@ -1,8 +1,0 @@
-{
-  "first_name": "#𝐏𝐑𝐠𝐫𝐚𝐦 Фрея [PGRM]",
-  "id": 1945167560,
-  "is_bot": false,
-  "is_premium": true,
-  "language_code": "ru",
-  "username": "MATb_PR_GRAM"
-}

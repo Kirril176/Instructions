@@ -1,9 +1,0 @@
-{
-  "first_name": "Денис",
-  "id": 7799211078,
-  "is_bot": false,
-  "is_premium": true,
-  "language_code": "ru",
-  "last_name": "М.",
-  "username": "mannrace"
-}

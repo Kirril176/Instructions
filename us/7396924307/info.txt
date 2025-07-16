@@ -1,7 +1,0 @@
-{
-  "first_name": "4:20",
-  "id": 7396924307,
-  "is_bot": false,
-  "language_code": "ru",
-  "username": "KYPATOP_4_20"
-}

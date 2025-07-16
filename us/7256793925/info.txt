@@ -1,7 +1,0 @@
-{
-  "first_name": "ктфлк",
-  "id": 7256793925,
-  "is_bot": false,
-  "language_code": "ru",
-  "username": "kat4falk"
-}

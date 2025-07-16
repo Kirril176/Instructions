@@ -1,6 +1,0 @@
-{
-  "first_name": "Олег",
-  "id": 7496325866,
-  "is_bot": false,
-  "language_code": "ru"
-}

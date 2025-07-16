@@ -1,7 +1,0 @@
-{
-  "first_name": "sawred",
-  "id": 6319670323,
-  "is_bot": false,
-  "language_code": "ru",
-  "username": "gry66VZ"
-}

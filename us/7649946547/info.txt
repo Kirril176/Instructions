@@ -1,7 +1,0 @@
-{
-  "first_name": "Priest",
-  "id": 7649946547,
-  "is_bot": false,
-  "language_code": "ru",
-  "username": "priest344"
-}

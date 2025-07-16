@@ -1,6 +1,0 @@
-{
-  "tgId": 1460628445,
-  "admin_setsub": true,
-  "duration": 60,
-  "tariff": "Admin Updated"
-}

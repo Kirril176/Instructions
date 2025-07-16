@@ -1,7 +1,0 @@
-{
-  "first_name": "Anni4ca😈",
-  "id": 6958438812,
-  "is_bot": false,
-  "language_code": "ru",
-  "username": "vipsenderes"
-}

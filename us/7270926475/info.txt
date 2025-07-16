@@ -1,7 +1,0 @@
-{
-  "first_name": "мен #ASME",
-  "id": 7270926475,
-  "is_bot": false,
-  "language_code": "ru",
-  "username": "Meni_cuni"
-}

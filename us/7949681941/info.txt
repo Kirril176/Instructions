@@ -1,7 +1,0 @@
-{
-  "first_name": "ᅠᅠᅠᅠᅠ",
-  "id": 7949681941,
-  "is_bot": false,
-  "language_code": "uk",
-  "username": "roman_boss_official"
-}

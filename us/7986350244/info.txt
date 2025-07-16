@@ -1,7 +1,0 @@
-{
-  "first_name": "さあさまはた",
-  "id": 7986350244,
-  "is_bot": false,
-  "language_code": "ru",
-  "last_name": "まはたはたはまはたはは"
-}

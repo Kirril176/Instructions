@@ -1,7 +1,0 @@
-{
-  "first_name": "Fff",
-  "id": 7779843842,
-  "is_bot": false,
-  "language_code": "en",
-  "username": "ffftttfff1"
-}

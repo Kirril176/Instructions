@@ -1,8 +1,0 @@
-{
-  "first_name": "#𝐏𝐑𝐠𝐫𝐚𝐦 | 𝐘𝐮",
-  "id": 1346796505,
-  "is_bot": false,
-  "is_premium": true,
-  "language_code": "ru",
-  "username": "WhereFameLLL"
-}

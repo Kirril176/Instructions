@@ -1,8 +1,0 @@
-{
-  "first_name": "M@®$€l SVEN",
-  "id": 1464892382,
-  "is_bot": false,
-  "is_premium": true,
-  "language_code": "ru",
-  "username": "Money_0907"
-}

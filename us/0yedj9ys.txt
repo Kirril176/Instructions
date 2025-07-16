@@ -1,2 +1,0 @@
-vless://5b137de8-08d6-11f0-9558-8dfc6e052011@vpn-x3.ru:52687/?type=tcp&security=reality&fp=chrome&pbk=...&sni=microsoft.com&sid=24705084&spx=%2F#VPN-X3-6292332566
-vless://5b137de9-08d6-11f0-9558-8dfc6e052011@vpn-x3.ru:52687/?type=tcp&security=reality&fp=chrome&pbk=...&sni=microsoft.com&sid=24705084&spx=%2F#VPN-X3-6292332566

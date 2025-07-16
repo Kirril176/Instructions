@@ -1,7 +1,0 @@
-{
-  "first_name": "Mira",
-  "id": 1933261486,
-  "is_bot": false,
-  "language_code": "ru",
-  "username": "mira12n"
-}

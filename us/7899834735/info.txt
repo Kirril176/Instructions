@@ -1,7 +1,0 @@
-{
-  "first_name": "Няшка Пиздяшка",
-  "id": 7899834735,
-  "is_bot": false,
-  "language_code": "ru",
-  "username": "o4ko_dur0va"
-}
