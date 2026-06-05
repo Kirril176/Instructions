@@ -45,7 +45,8 @@ h1 { font-size: 1.5rem; margin-bottom: 10px; }
 var params = new URLSearchParams(window.location.search);
 var token = params.get('token') || 'unknown';
 var subUrl = 'https://ebynadomy.com/sub/' + token;
-var deepLink = 'v2raytun://import/' + subUrl;
+var encoded = btoa(subUrl);
+var deepLink = 'v2raytun://import/' + encoded;
 
 document.getElementById('sublink').textContent = subUrl;
 document.getElementById('openBtn').href = deepLink;
