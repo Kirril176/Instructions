@@ -27,28 +27,35 @@ h1 { font-size: 1.5rem; margin-bottom: 10px; }
   <h1>Открыть Happ</h1>
   <p class="sub">Нажмите кнопку ниже чтобы открыть приложение и импортировать подписку</p>
 
-  <a href="happ://add/https://ebynadomy.com/sub/TEST123" class="btn btn-primary">Открыть Happ</a>
+  <a id="openBtn" href="#" class="btn btn-primary">Открыть Happ</a>
 
   <div class="steps">
-    <div class="step">1 Нажмите кнопку выше</div>
+    <div class="step">1️⃣ Нажмите кнопку выше</div>
     <div class="step">2️⃣ Если не открылось — скопируйте ссылку ниже</div>
     <div class="step">3️⃣ Вставьте в приложение: кнопка «+» → «Импорт из буфера»</div>
   </div>
 
-  <div class="link-box" id="sublink">https://ebynadomy.com/sub/TEST123</div>
+  <div class="link-box" id="sublink"></div>
   <button class="btn btn-secondary" onclick="copyLink()">📋 Скопировать ссылку</button>
 
   <p class="hint">Нет приложения? <a href="https://happ.su" style="color:#667eea">Установить Happ</a></p>
 </div>
 
 <script>
-// Автоматически пробуем открыть приложение
+var params = new URLSearchParams(window.location.search);
+var token = params.get('token') || 'unknown';
+var subUrl = 'https://ebynadomy.com/sub/' + token;
+var deepLink = 'happ://add/' + subUrl;
+
+document.getElementById('sublink').textContent = subUrl;
+document.getElementById('openBtn').href = deepLink;
+
 setTimeout(function() {
-  window.location.href = "happ://add/https://ebynadomy.com/sub/TEST123";
+  window.location.href = deepLink;
 }, 500);
 
 function copyLink() {
-  navigator.clipboard.writeText("https://ebynadomy.com/sub/TEST123").then(function() {
+  navigator.clipboard.writeText(subUrl).then(function() {
     var btn = document.querySelector('.btn-secondary');
     btn.textContent = '✅ Скопировано!';
     setTimeout(function() { btn.textContent = '📋 Скопировать ссылку'; }, 2000);
