@@ -19,6 +19,7 @@ h1 { font-size: 1.5rem; margin-bottom: 10px; }
 .hint { font-size: 0.8rem; color: #666; margin-top: 8px; }
 .steps { text-align: left; background: #0a0a0f; border-radius: 12px; padding: 16px; margin-bottom: 20px; }
 .step { font-size: 0.85rem; color: #aaa; margin-bottom: 8px; }
+.loading { color: #667eea; font-size: 0.9rem; margin-bottom: 16px; }
 </style>
 </head>
 <body>
@@ -27,7 +28,8 @@ h1 { font-size: 1.5rem; margin-bottom: 10px; }
   <h1>Открыть Happ</h1>
   <p class="sub">Нажмите кнопку ниже чтобы открыть приложение и импортировать подписку</p>
 
-  <a id="openBtn" href="#" class="btn btn-primary">Открыть Happ</a>
+  <div class="loading" id="loadingText">⏳ Подготовка ссылки...</div>
+  <a id="openBtn" href="#" class="btn btn-primary" style="display:none">Открыть Happ</a>
 
   <div class="steps">
     <div class="step">1️⃣ Нажмите кнопку выше</div>
@@ -36,7 +38,7 @@ h1 { font-size: 1.5rem; margin-bottom: 10px; }
   </div>
 
   <div class="link-box" id="sublink"></div>
-  <button class="btn btn-secondary" onclick="copyLink()">📋 Скопировать ссылку</button>
+  <button class="btn btn-secondary" onclick="copyLink()" id="copyBtn" style="display:none">📋 Скопировать ссылку</button>
 
   <p class="hint">Нет приложения? <a href="https://happ.su" style="color:#667eea">Установить Happ</a></p>
 </div>
@@ -45,18 +47,40 @@ h1 { font-size: 1.5rem; margin-bottom: 10px; }
 var params = new URLSearchParams(window.location.search);
 var token = params.get('token') || 'unknown';
 var subUrl = 'https://ebynadomy.com/sub/' + token;
-var deepLink = 'happ://add/' + subUrl;
+var deepLink = '';
 
-document.getElementById('sublink').textContent = subUrl;
-document.getElementById('openBtn').href = deepLink;
+// Получаем зашифрованную ссылку через API
+fetch('https://crypto.happ.su/api-v2.php', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ url: subUrl })
+})
+.then(function(r) { return r.json(); })
+.then(function(data) {
+  deepLink = data.encrypted_link || ('happ://add/' + subUrl);
+  init();
+})
+.catch(function() {
+  deepLink = 'happ://add/' + subUrl;
+  init();
+});
 
-setTimeout(function() {
-  window.location.href = deepLink;
-}, 500);
+function init() {
+  document.getElementById('loadingText').style.display = 'none';
+  document.getElementById('openBtn').style.display = 'block';
+  document.getElementById('openBtn').href = deepLink;
+  document.getElementById('sublink').textContent = subUrl;
+  document.getElementById('copyBtn').style.display = 'block';
+
+  // Автоматически открываем приложение
+  setTimeout(function() {
+    window.location.href = deepLink;
+  }, 300);
+}
 
 function copyLink() {
   navigator.clipboard.writeText(subUrl).then(function() {
-    var btn = document.querySelector('.btn-secondary');
+    var btn = document.getElementById('copyBtn');
     btn.textContent = '✅ Скопировано!';
     setTimeout(function() { btn.textContent = '📋 Скопировать ссылку'; }, 2000);
   });
